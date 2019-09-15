@@ -1,0 +1,151 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Pretraga članskih karata</h4>
+                        <p class="card-category">*nije neophodno uneti sve kriterijume pretrage</p>
+                    </div>
+                    <div class="card-body">
+                        <form>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Korisnici</mat-label>
+                                        <mat-select [(ngModel)]="korisnik" [ngModelOptions]="{standalone: true}">
+                                            <mat-option *ngFor="let korisnik of korisnici" [value]="korisnik.imePrezime">
+                                                {{korisnik.imePrezime}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Treninzi</mat-label>
+                                        <mat-select [(ngModel)]="trening" [ngModelOptions]="{standalone: true}">
+                                            <mat-option *ngFor="let trening of treninzi" [value]="trening.nazivTreninga">
+                                                {{trening.nazivTreninga}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Status</mat-label>
+                                        <mat-select [(ngModel)]="status" [ngModelOptions]="{standalone: true}">
+                                            <mat-option *ngFor="let status of statusi" [value]="status">
+                                                {{status}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                </div>
+                                <div class="col-md-4">
+                                </div>
+                                <div class="col-md-4">
+                                    <button mat-raised-button type="submit" (click)="searchClanskeKarte()" class="btn btn-danger pull-right">
+                                        Pronađi članske karte</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="main-content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header card-header-danger" style="color: #9c27b0">
+                                        <h4 class="card-title ">Lista članskih karti</h4>
+                                        <p class="card-category"></p>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover">
+                                                <thead class=" text-primary">
+                                                    <th>
+                                                        ID
+                                                    </th>
+                                                    <th>
+                                                        Korisnik
+                                                    </th>
+                                                    <th>
+                                                        Trening
+                                                    </th>
+                                                    <th>
+                                                        Datum uplate
+                                                    </th>
+                                                    <th>
+                                                        Datum važenja
+                                                    </th>
+                                                    <th>
+                                                        Status
+                                                    </th>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let clanska of clanskeKarte; let i = index" [attr.data-index]="i">
+                                                        <td>{{clanska.clanskaKartaID}}</td>
+                                                        <td>{{clanska.korisnik.imePrezime}}</td>
+                                                        <td>{{clanska.trening.nazivTreninga}}</td>
+                                                        <td>{{clanska.datumUplate | slice:0:10}}</td>
+                                                        <td>{{clanska.datumVazenja | slice:0:10}}</td>
+                                                        <td>{{clanska.status}}</td>
+                                                        <td>
+                                                            <div class="form-check">
+                                                                <label class="form-check-label">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        value="false" (click)='onSelect($event, i)'>
+                                                                    <span class="form-check-sign">
+                                                                        <span class="check"></span>
+                                                                    </span>
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style="padding-right: 120px">
+                    <div class="col-md-4">
+                        <button mat-raised-button (click)="openUnosClanske()" class="btn btn-danger pull-right" style="width: 180px">
+                            Unesi novu</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button mat-raised-button (click)="openPrikazClanske()" class="btn btn-danger pull-right" style="width: 180px">
+                            Prikaži</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button mat-raised-button (click)="openIzmenaClanske()" class="btn btn-danger pull-right" style="width: 180px">
+                            Izmeni</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div *ngIf="openUnosClanskeBOOL">
+            <app-unos-clanske-karte [clanskeKarte]="clanskeKarte" (updateClanskeKarte)="newClanskeKarte($event)">
+            </app-unos-clanske-karte>
+        </div>
+        <div *ngIf="openPrikazClanskeBOOL">
+            <app-prikaz-clanske-karte [checkedClanska]="checkedClanska"></app-prikaz-clanske-karte>
+        </div>
+        <div *ngIf="openIzmenaClanskeBOOL">
+            <app-izmena-clanske-karte [checkedClanska]="checkedClanska" [clanskeKarte]="clanskeKarte" (updateClanskeKarte)="newClanskeKarte($event)"></app-izmena-clanske-karte>
+        </div>
+    </div>
+</div>

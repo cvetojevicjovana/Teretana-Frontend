@@ -1,0 +1,136 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Pretraga treninga</h4>
+                        <p class="card-category">*nije neophodno uneti sve kriterijume pretrage</p>
+                    </div>
+                    <div class="card-body">
+                        <form>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="ID" class="id" [(ngModel)]="id" [ngModelOptions]="{standalone: true}" type="text">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Naziv" class="naziv" [(ngModel)]="naziv" [ngModelOptions]="{standalone: true}" type="text">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Opis" class="opis" [(ngModel)]="opis" [ngModelOptions]="{standalone: true}" type="text">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Cena" class="cena" [(ngModel)]="cena" [ngModelOptions]="{standalone: true}" type="text">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                </div>
+                                <div class="col-md-4">
+                                    <button mat-raised-button type="submit" (click)="searchTreninzi()" class="btn btn-danger pull-right">
+                                        Pronađi treninge</button>
+                                </div>
+                            </div>
+
+
+                        </form>
+                    </div>
+                </div>
+
+                <div class="main-content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header card-header-danger" style="color: #9c27b0">
+                                        <h4 class="card-title ">Lista treninga</h4>
+                                        <p class="card-category"></p>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover">
+                                                <thead class=" text-primary">
+                                                    <th>
+                                                        ID
+                                                    </th>
+                                                    <th>
+                                                        Naziv
+                                                    </th>
+                                                    <th>
+                                                        Opis
+                                                    </th>
+                                                    <th>
+                                                        Broj termina
+                                                    </th>
+                                                    <th>
+                                                        Cena
+                                                    </th>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let trening of treninzi; let i = index" [attr.data-index]="i">
+                                                        <td>{{trening.treningID}}</td>
+                                                        <td>{{trening.nazivTreninga}}</td>
+                                                        <td>{{trening.opis}}</td>
+                                                        <td>{{trening.brojTermina}}</td>
+                                                        <td>{{trening.cena}}</td>
+                                                        <td>
+                                                            <div class="form-check">
+                                                                <label class="form-check-label">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        value="false" (click)='onSelect($event, i)'>
+                                                                    <span class="form-check-sign">
+                                                                        <span class="check"></span>
+                                                                    </span>
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style="padding-right: 100px">
+                    <div class="col-md-4">
+                        <button mat-raised-button (click)="openUnosTreninga()" class="btn btn-danger pull-right" style="width: 180px">
+                            Unesi novi</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button mat-raised-button (click)="openPrikazTreninga()" class="btn btn-danger pull-right" style="width: 180px">
+                            Prikaži</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button mat-raised-button (click)="openIzmenaTreninga()" class="btn btn-danger pull-right" style="width: 180px">
+                            Izmeni</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div *ngIf="openUnosTreningaBOOL">
+            <app-unos-treninga [treninzi]="treninzi" (updateTreninzi)="newTreninzi($event)"></app-unos-treninga>
+        </div>
+        <div *ngIf="openPrikazTreningaBOOL">
+            <app-prikaz-treninga [checkedTrening]="checkedTrening"></app-prikaz-treninga>
+        </div>
+        <div *ngIf="openIzmenaTreningaBOOL">
+            <app-izmena-treninga [checkedTrening]="checkedTrening" [treninzi]="treninzi" (updateTreninzi)="newTreninzi($event)"></app-izmena-treninga>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,57 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-10" style="padding-left: 100px ">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Unos treninga</h4>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="ID (disabled)" class="id" [(ngModel)]="trening.treningID" [ngModelOptions]="{standalone: true}" disabled>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Naziv" class="naziv" [(ngModel)]="trening.nazivTreninga" [ngModelOptions]="{standalone: true}" type="text">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Opis" class="opis" [(ngModel)]="trening.opis" [ngModelOptions]="{standalone: true}" type="text">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Broj termina" class="brojTermina" [(ngModel)]="trening.brojTermina" [ngModelOptions]="{standalone: true}" type="text">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Cena" class="cena" [(ngModel)]="trening.cena" [ngModelOptions]="{standalone: true}" type="text">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <button mat-raised-button type="submit" (click)="saveTrening()" class="btn btn-danger pull-right">Sačuvaj</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

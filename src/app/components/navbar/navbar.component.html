@@ -1,0 +1,23 @@
+<nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-wrapper">
+            <a class="navbar-brand" href="javascript:void(0)">
+                <h2>{{getTitle()}}</h2>
+            </a>
+        </div>
+
+        <div *ngIf="loginService.isUserLoggedIn()" style="padding-left: 470px">
+
+            <h3><i class="material-icons">person</i>{{loginService.ulogovani}}</h3>
+        </div>
+        <div *ngIf="loginService.isUserLoggedIn()" routerLink="/logout">
+            <button mat-raised-button type="submit" class="btn btn-danger pull-right">Logout</button>
+        </div>
+        <button mat-raised-button class="navbar-toggler" type="button" (click)="sidebarToggle()">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+        </button>
+    </div>
+</nav>

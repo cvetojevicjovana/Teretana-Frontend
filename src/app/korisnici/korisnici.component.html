@@ -1,0 +1,133 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Pretraga korisnika</h4>
+                        <p class="card-category">*nije neophodno uneti sve kriterijume pretrage</p>
+                    </div>
+                    <div class="card-body">
+                        <form>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="ID" class="id" [(ngModel)]="id" [ngModelOptions]="{standalone: true}" type="text">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Ime i prezime" class="imePrezime" [(ngModel)]="imePrezime" [ngModelOptions]="{standalone: true}" type="text">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Radnik" class="radnik" [(ngModel)]="radnik" [ngModelOptions]="{standalone: true}" type="text">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                </div>
+                                <div class="col-md-4">
+                                </div>
+                                <div class="col-md-4">
+                                    <button mat-raised-button type="submit" (click)="searchKorisnici()" class="btn btn-danger pull-right">
+                                        Pronađi korisnike</button>
+                                </div>
+                            </div>
+
+
+                        </form>
+                    </div>
+                </div>
+
+                <div class="main-content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header card-header-danger" style="color: #9c27b0">
+                                        <h4 class="card-title ">Lista korisnika</h4>
+                                        <p class="card-category"></p>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover">
+                                                <thead class=" text-primary">
+                                                    <th>
+                                                        ID
+                                                    </th>
+                                                    <th>
+                                                        Ime i prezime
+                                                    </th>
+                                                    <th>
+                                                        eMail
+                                                    </th>
+                                                    <th>
+                                                        Telefon
+                                                    </th>
+                                                    <th>
+                                                        Radnik
+                                                    </th>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let korisnik of korisnici; let i = index" [attr.data-index]="i">
+                                                        <td>{{korisnik.korisnikID}}</td>
+                                                        <td>{{korisnik.imePrezime}}</td>
+                                                        <td>{{korisnik.email}}</td>
+                                                        <td>{{korisnik.telefon}}</td>
+                                                        <td>{{korisnik.radnik.imePrezime}}</td>
+                                                        <td>
+                                                            <div class="form-check">
+                                                                <label class="form-check-label">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        value="false" (click)='onSelect($event, i)'>
+                                                                    <span class="form-check-sign">
+                                                                        <span class="check"></span>
+                                                                    </span>
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style="padding-right: 130px">
+                    <div class="col-md-4">
+                        <button mat-raised-button (click)="openUnosKorisnika()" class="btn btn-danger pull-right" style="width: 180px">
+                            Unesi novi</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button mat-raised-button (click)="openPrikazKorisnika()" class="btn btn-danger pull-right" style="width: 180px">
+                            Prikaži</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button mat-raised-button (click)="openIzmenaKorisnika()" class="btn btn-danger pull-right" style="width: 180px">
+                            Izmeni</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div *ngIf="openUnosKorisnikaBOOL">
+            <app-unos-korisnika [korisnici]="korisnici" (updateKorisnici)="newKorisnici($event)"></app-unos-korisnika>
+        </div>
+        <div *ngIf="openPrikazKorisnikaBOOL">
+            <app-prikaz-korisnika [checkedKorisnik]="checkedKorisnik"></app-prikaz-korisnika>
+        </div>
+        <div *ngIf="openIzmenaKorisnikaBOOL">
+            <app-izmena-korisnika [checkedKorisnik]="checkedKorisnik" [korisnici]="korisnici" (updateKorisnici)="newKorisnici($event)"></app-izmena-korisnika>
+        </div>
+    </div>
+</div>
